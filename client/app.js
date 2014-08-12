@@ -1,6 +1,6 @@
 var el = document.getElementById('me');
 
-var text = el.innerText;
+var text = window.location.hostname;
 el.innerHTML = '<div id="shadow"></div><div id="mask">' + text + '</div>';
 var letters = text.split('').map(function(letter) {
   var e = document.createElement('span');
