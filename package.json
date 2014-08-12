@@ -1,0 +1,38 @@
+{
+  "name": "danyi.me",
+  "version": "1.0.0",
+  "description": "My stuff",
+  "main": "app.js",
+  "scripts": {
+    "test": "tap test/*.js",
+    "start": "npm run build && node --harmony app",
+    "build": "npm run clean && mkdir public && npm run build-assets && npm prune --prod",
+    "clean": "rm -rf public && rm -rf node_modules && npm install",
+    "build-assets": "npm run js & npm run css & npm run html",
+    "js": "browserify client/app.js | uglifyjs -o public/bundle.js -c",
+    "css": "stylus --compress --out public assets/style.styl",
+    "html": "jade --out public view"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madbence/danyi.me"
+  },
+  "author": "Bence Dányi <bence@danyi.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/madbence/danyi.me/issues"
+  },
+  "homepage": "https://github.com/madbence/danyi.me",
+  "devDependencies": {
+    "browserify": "^5.9.3",
+    "es6ify": "^1.3.0",
+    "jade": "^1.5.0",
+    "stylus": "^0.47.3",
+    "uglify-js": "^2.4.15",
+    "watchify": "^1.0.2"
+  },
+  "dependencies": {
+    "koa": "^0.9.0",
+    "koa-static": "^1.4.6"
+  }
+}
