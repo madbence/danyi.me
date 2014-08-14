@@ -23,13 +23,13 @@ document.addEventListener('mousemove', function(e) {
     var ly = (rect.top + rect.bottom) / 2;
     var dx = x - lx;
     var dy = y - ly;
-    var d = Math.max(30, Math.sqrt(dx*dx + dy*dy));
+    var d = Math.max(30, Math.min(400, Math.sqrt(dx*dx + dy*dy)));
     var shadow = [];
     var p = 6;
     for(var i = 1; i < p + 1; i++) {
       var n = i / p;
       var opacity = 0.15 * Math.max(0, 1 - Math.pow(n, 1.2));
-      var f = Math.pow(n, 1.8) / 5;
+      var f = Math.pow(n, 1.8) / 10;
       var blur = 20 * d / 500;
       shadow.push((dx * -f) + 'px ' + (dy * -f) + 'px ' + blur + 'px rgba(0,0,0,' + opacity + ')');
     }
