@@ -34,13 +34,25 @@ body
 .content
   color #444
   font-weight 200
-  width 600px
-  margin 0 auto
-  text-align center
 
 p + p
   margin-top 3rem
 
+p
+  display flex
+  align-items center
+  justify-content center
+
 a
   color inherit
   text-decoration none
+  display inline-flex
+  align-items center
+
+a + a
+  padding-left 2rem
+
+svg
+  width 32px
+  height 32px
+  fill #444
