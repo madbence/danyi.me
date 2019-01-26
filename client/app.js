@@ -1,20 +1,23 @@
-var el = document.getElementById('me');
+var el = document.querySelector('.me');
 
-var text = window.location.hostname;
-el.innerHTML = '<div id="shadow"></div><div id="mask">' + text + '</div>';
+var text = window.location.hostname.toUpperCase();
+el.innerHTML = '<div class="shadow"></div><div class="mask">' + text.split('').map(function (l) {
+  return '<span>' + l + '</span>';
+}).join('') + '</div>';
+
 var letters = text.split('').map(function(letter) {
   var e = document.createElement('span');
   e.innerText = letter;
   return e;
 });
 
-var shadow = document.getElementById('shadow');
+var shadow = document.querySelector('.shadow');
 
 letters.forEach(function(letter) {
   shadow.appendChild(letter);
 });
 
-document.addEventListener('mousemove', function(e) {
+function updateShadows(e) {
   var x = e.pageX;
   var y = e.pageY;
   letters.forEach(function(letter) {
@@ -23,16 +26,20 @@ document.addEventListener('mousemove', function(e) {
     var ly = (rect.top + rect.bottom) / 2;
     var dx = x - lx;
     var dy = y - ly;
-    var d = Math.max(30, Math.min(400, Math.sqrt(dx*dx + dy*dy)));
+    var d = Math.sqrt(dx*dx + dy*dy);
     var shadow = [];
-    var p = 6;
-    for(var i = 1; i < p + 1; i++) {
+    var p = 10;
+    for(var i = 0; i < p + 1; i++) {
       var n = i / p;
-      var opacity = 0.15 * Math.max(0, 1 - Math.pow(n, 1.2));
-      var f = Math.pow(n, 1.8) / 10;
-      var blur = 20 * d / 500;
+      var opacity = (1 - Math.sqrt(n)) / 3;
+      var f = n * n / 5;
+      var blur = Math.min(2 + d * f, 30);
       shadow.push((dx * -f) + 'px ' + (dy * -f) + 'px ' + blur + 'px rgba(0,0,0,' + opacity + ')');
     }
     letter.style.textShadow = shadow.join(', ');
   });
-});
+}
+
+updateShadows({pageX: window.innerWidth / 2, pageY: 100});
+
+document.addEventListener('mousemove', updateShadows);
