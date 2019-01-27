@@ -23,3 +23,10 @@ html
           include email.svg
           | bence@danyi.me
     script(src='bundle.js')
+    script(async=true, src='https://www.googletagmanager.com/gtag/js?id=UA-133342116-1')
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-133342116-1');
