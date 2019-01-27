@@ -26,7 +26,6 @@ function updateShadows(e) {
     x = (45 + Math.max(-45, Math.min(45, -e.gamma))) / 90 * window.innerWidth;
     y = (45 + Math.max(-45, Math.min(45, -e.beta))) / 90 * window.innerHeight * .75;
   }
-  console.log(x, y)
   letters.forEach(function(letter) {
     var rect = letter.getBoundingClientRect();
     var lx = (rect.right + rect.left) / 2;
