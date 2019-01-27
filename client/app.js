@@ -18,8 +18,15 @@ letters.forEach(function(letter) {
 });
 
 function updateShadows(e) {
-  var x = e.pageX;
-  var y = e.pageY;
+  var x, y;
+  if (typeof e.pageX != 'undefined') {
+    x = e.pageX;
+    y = e.pageY;
+  } else {
+    x = (45 + Math.max(-45, Math.min(45, -e.gamma))) / 90 * window.innerWidth;
+    y = (45 + Math.max(-45, Math.min(45, -e.beta))) / 90 * window.innerHeight * .75;
+  }
+  console.log(x, y)
   letters.forEach(function(letter) {
     var rect = letter.getBoundingClientRect();
     var lx = (rect.right + rect.left) / 2;
@@ -42,4 +49,5 @@ function updateShadows(e) {
 
 updateShadows({pageX: window.innerWidth / 2, pageY: 100});
 
-document.addEventListener('mousemove', updateShadows);
+document.addEventListener('mousemove', updateShadows, true);
+window.addEventListener('deviceorientation', updateShadows, true);
