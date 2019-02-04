@@ -17,15 +17,14 @@ letters.forEach(function(letter) {
   shadow.appendChild(letter);
 });
 
-function updateShadows(e) {
-  var x, y;
-  if (typeof e.pageX != 'undefined') {
-    x = e.pageX;
-    y = e.pageY;
-  } else {
-    x = (45 + Math.max(-45, Math.min(45, -e.gamma))) / 90 * window.innerWidth;
-    y = (45 + Math.max(-45, Math.min(45, -e.beta))) / 90 * window.innerHeight * .75;
-  }
+var x = window.innerWidth / 2, y = 0;
+
+function updateMouse(e) {
+  x = e.pageX;
+  y = e.pageY;
+}
+
+function updateShadows() {
   document.body.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, #fff, #ddd 100%)'
   letters.forEach(function(letter) {
     var rect = letter.getBoundingClientRect();
@@ -48,9 +47,8 @@ function updateShadows(e) {
     }
     letter.style.textShadow = shadow.join(', ');
   });
+  window.requestAnimationFrame(updateShadows);
 }
+window.requestAnimationFrame(updateShadows)
 
-updateShadows({pageX: window.innerWidth / 2, pageY: 0});
-
-document.addEventListener('mousemove', updateShadows, true);
-// window.addEventListener('deviceorientation', updateShadows, true);
+document.addEventListener('mousemove', updateMouse, true);
